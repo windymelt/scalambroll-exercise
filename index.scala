@@ -12,10 +12,24 @@ trait Event extends js.Object {
 @js.native
 trait Context extends js.Object
 
+trait Response extends js.Object {
+  val statusCode: Int
+  val body: String
+}
+
 object Index {
   @JSExportTopLevel(name = "handler", moduleID = "index")
-  def handler(event: Event, context: Context): Unit = {
+  def handler(
+      event: Event,
+      context: Context,
+      callback: js.Function2[Null, Response, Unit]
+  ): Unit = {
     println(s"Hello, ${event.name}!")
+    val resp = new Response {
+      val statusCode: Int = 200
+      val body: String = s"Hello, ${event.name}!"
+    }
+    callback(null, resp)
   }
 }
 
