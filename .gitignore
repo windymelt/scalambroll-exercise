@@ -1,0 +1,5 @@
+dist
+.bsp
+.metals
+.scala-build
+.vscode
